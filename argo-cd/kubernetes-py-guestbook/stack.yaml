@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubernetes-py-guestbook
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-py-guestbook:system:auth-delegator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-py-guestbook
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-py-guestbook:cluster-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-py-guestbook
+  namespace: default
+---
+apiVersion: pulumi.com/v1
+kind: Stack
+metadata:
+  name: kubernetes-py-guestbook
+  namespace: default
+spec:
+  serviceAccountName: kubernetes-py-guestbook
+  stack: kubernetes-py-guestbook
+  projectRepo: https://github.com/pulumi/examples
+  repoDir: /kubernetes-py-guestbook/simple
+  branch: "refs/heads/master"
+  refresh: true
+  continueResyncOnCommitMatch: false
+  resyncFrequencySeconds: 60
+  destroyOnFinalize: true
+  envRefs:
+    PULUMI_ACCESS_TOKEN:
+      type: Secret
+      secret:
+        name: pulumi-api-secret
+        key: accessToken
+  workspaceTemplate:
+    spec:
+      image: pulumi/pulumi:3.134.1-nonroot
