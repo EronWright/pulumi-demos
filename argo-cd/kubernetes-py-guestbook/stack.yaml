@@ -42,7 +42,6 @@ spec:
   repoDir: /kubernetes-py-guestbook/simple
   branch: "refs/heads/master"
   refresh: true
-  continueResyncOnCommitMatch: false
   resyncFrequencySeconds: 60
   destroyOnFinalize: true
   envRefs:
