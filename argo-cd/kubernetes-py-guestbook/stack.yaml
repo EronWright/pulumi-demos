@@ -42,9 +42,7 @@ metadata:
   name: kubernetes-py-guestbook
   namespace: default
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io 
+    argocd.argoproj.io/sync-wave: "3" 
 spec:
   serviceAccountName: kubernetes-py-guestbook
   stack: kubernetes-py-guestbook
