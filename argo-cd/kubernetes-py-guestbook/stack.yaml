@@ -51,7 +51,7 @@ spec:
   branch: "refs/heads/master"
   refresh: true
   resyncFrequencySeconds: 60
-  destroyOnFinalize: false
+  destroyOnFinalize: true
   envRefs:
     PULUMI_ACCESS_TOKEN:
       type: Secret
