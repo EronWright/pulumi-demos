@@ -3,11 +3,15 @@ kind: ServiceAccount
 metadata:
   name: kubernetes-py-guestbook
   namespace: default
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: kubernetes-py-guestbook:system:auth-delegator
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -21,6 +25,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: kubernetes-py-guestbook:cluster-admin
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -35,6 +41,8 @@ kind: Stack
 metadata:
   name: kubernetes-py-guestbook
   namespace: default
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   serviceAccountName: kubernetes-py-guestbook
   stack: kubernetes-py-guestbook
