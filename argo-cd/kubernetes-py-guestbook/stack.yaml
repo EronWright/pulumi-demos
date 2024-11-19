@@ -43,6 +43,7 @@ metadata:
   namespace: default
   annotations:
     argocd.argoproj.io/sync-wave: "3" 
+    pulumi.com/reconciliation-request: "before-first-update"
 spec:
   serviceAccountName: kubernetes-py-guestbook
   stack: kubernetes-py-guestbook
